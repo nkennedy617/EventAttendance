@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -32,7 +33,7 @@ public partial class _Default : System.Web.UI.Page
             string connstring1 = "Data Source=AUSQL;Initial Catalog=EventAttend;Persist Security Info=True;User ID=web_user;Password=w3b_us3r2010";
             using (SqlConnection con1 = new SqlConnection(connstring1))
             {
-                string query = "select	top 1 p.people_id, p.last_name, p.first_name, p.middle_name, coalesce(p.nickname,'') as nickname, m.manLevelID, cm.mlTitle as ManageLevel from	aupcstor.campus6_train.dbo.personuser pu  inner join aupcstor.campus6_train.dbo.people as p  on p.personid = pu.personid  inner join ausql.eventattend.dbo.management as m on m.peopleid = p.people_id and m.status = 'a' and m.manLevelID IN (1,2,3) inner join ausql.eventattend.dbo.code_managementlevel as cm on cm.manLevelID = m.manLevelID where	pu.username = @username";
+                string query = "select	top 1 p.people_id, p.last_name, p.first_name, p.middle_name, coalesce(p.nickname,'') as nickname, m.manLevelID, cm.mlTitle as ManageLevel from	aupcstor.campus6.dbo.personuser pu  inner join aupcstor.campus6.dbo.people as p  on p.personid = pu.personid  inner join ausql.eventattend.dbo.management as m on m.peopleid = p.people_id and m.status = 'a' and m.manLevelID IN (1,2,3) inner join ausql.eventattend.dbo.code_managementlevel as cm on cm.manLevelID = m.manLevelID where	pu.username = @username";
                 using (SqlCommand cmd1 = new SqlCommand(query, con1))
                 {
                     cmd1.Parameters.AddWithValue("@username", ticket.Name);
@@ -46,10 +47,6 @@ public partial class _Default : System.Web.UI.Page
                             string fullname = reader["last_name"] + ", " + reader["first_name"] + " " + reader["middle_name"];
                             string nname = "";
                             string pid = (string)reader["People_ID"];
-                            Session["pid"] = pid;
-                            Session["fname"] = reader["first_name"];
-                            Session["lname"] = reader["last_name"];
-                            Session["mname"] = reader["middle_name"];
                             if (reader["nickname"] != null && (string)reader["nickname"] != "")
                             {
                                 nname = " [" + (string)reader["nickname"] + "]";
@@ -72,6 +69,16 @@ public partial class _Default : System.Web.UI.Page
                     }
                 }
             }
+            
+            //Response.Write("<p/>TicketName: " + ticket.Name);
+            //Response.Write("<br/>Cookie Path: " + ticket.CookiePath);
+            //Response.Write("<br/>Ticket Expiration: " +
+            //                ticket.Expiration.ToString());
+            //Response.Write("<br/>Expired: " + ticket.Expired.ToString());
+            //Response.Write("<br/>Persistent: " + ticket.IsPersistent.ToString());
+            //Response.Write("<br/>IssueDate: " + ticket.IssueDate.ToString());
+            //Response.Write("<br/>UserData: " + ticket.UserData);
+            //Response.Write("<br/>Version: " + ticket.Version.ToString());
         }
         else
         {
@@ -79,28 +86,35 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+        
 
     protected void txtStudentID_TextChanged(object sender, EventArgs e)
     {
         if (Page.Request.QueryString["id"] != null)
         {
+            
+                InsertData(txtStudentID.Text, Page.Request.QueryString["id"]);
+                
+                lblmsg.Text = "Data Inserted Successfully!";
 
-            InsertData(txtStudentID.Text, Page.Request.QueryString["id"]);
-
-            lblmsg.Text = "Data Inserted Successfully!";
-
-            this.txtStudentID.Text = "";
-
-            this.txtStudentID.Focus();
-        } 
+                this.txtStudentID.Text = "";
+                                     
+                          
+           
+        }
+ 
         else 
         {
-
+            lblmsg.Text = "FAILED"; 
         }
 
+        txtStudentID.Focus();
     }
 
-    [WebMethod]
+
+
+    
+    
     public static string InsertData(string studentID, string eventID)
     {
         string retMessage = string.Empty;
@@ -128,12 +142,16 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    
 
-
-
+    
+    
     protected void logoutButton_Click(object sender, EventArgs e)
     {
         FormsAuthentication.SignOut();
         Response.Redirect(FormsAuthentication.LoginUrl, false);
     }
+
+    
 }
+

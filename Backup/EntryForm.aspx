@@ -6,30 +6,19 @@
 <head id="Head1" runat="server">
     <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
     <title>Event Attendance - Entry Form</title>
-	<script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>  
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>  
 	<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 </head>
 
-<body style="text-align:left;margin:auto;">
-    <form id="form1" runat="server" style="text-align:left;margin:auto;"> 
+<body style="text-align:auto;margin:auto;">
+    <form id="form1" runat="server" style="text-align:auto;margin:auto;"> 
     <%-- Tried adding this to form tag:  defaultfocus="txtStudentID" --%>
-        <div id="surround">
-            <div id="header">
-                <h2>Event Attendance<span style="width:24%;float:right;text-align:right;"><asp:Button ID="logoutButton" runat="server" Text="Log out" OnClick="logoutButton_Click" Height="25px" Width="75px" /></span></h2>
-                <div style="clear:both;"></div>
-                <div>
-                    <div style="width:33%;float:left;"><asp:Label ID="userPID" runat="server"></asp:Label></div>
-                    <div style="width:33%;float:left;"><asp:Label ID="userFullName" runat="server"></asp:Label></div>
-                    <div style="width:33%;float:left;text-align:right;"><asp:Label ID="userManageLevel" runat="server"></asp:Label></div>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
             <asp:MultiView ID="MultiView1" runat="server">
                 <asp:View ID="View1" runat="server">
-					<div style="width:576px;text-align:left;margin:auto;padding:12px;">
+					<div style="width:800px;text-align:auto;margin:auto;">
                     <asp:Label ID="existsMsg" runat="server" style="color:maroon;font-size:14pt;" />
                     <asp:Label ID="successMsg" runat="server" style="color:darkgreen;font-size:14pt;" />
-					<h3 class="vTitle">Event Entry Form</h3>
+					<h2 class="vTitle">Event Entry Form</h2>
                     <table style="width:100%">
 						<tr>
                             <td class="txtBoxLabel">Event Title:
@@ -62,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtDesc" style="width: 450px; height: 150px; vertical-align:top;" runat="server" onblur="txtAge_onblur()" TextMode="MultiLine" Rows="4"></asp:TextBox>
+                                <asp:TextBox id="txtDesc" style="width: 350px; height: 150px; vertical-align:top;" runat="server" onblur="txtAge_onblur()" TextMode="MultiLine" Rows="4"></asp:TextBox>
                             </td>
                         </tr>  
 						<tr>
@@ -172,15 +161,15 @@
                         </tr>     
                         <tr>
                             <td>
-                                <asp:Button ID="btnSubmit" runat="server" Text="Save Event" Visible="true" style="width: 200px; height: 60px" OnClick="btnSubmit_Click" />
-                                <asp:Button ID="btnClear" runat="server" Text="Clear Form" Visible="true" style="width: 200px; height: 60px; margin-left:100px;" OnClick="btnClear_Click" />
+                                <asp:Button ID="btnSubmit" runat="server" Text="Save Event" Visible="true" style="width: 290px; height: 60px" OnClick="btnSubmit_Click" />
+                                <asp:Button ID="btnClear" runat="server" Text="Clear Form" Visible="true" style="width: 290px; height: 60px; float:right;" OnClick="btnClear_Click" />
                             </td>
                         </tr>
                     </table>
 					</div>
                 </asp:View>
                 <asp:View ID="View2" runat="server">
-                  <div style="width:310px;text-align:left;margin:auto;">
+                  <div style="width:310px;text-align:auto;margin:auto;">
                   
                    
                     
@@ -188,8 +177,7 @@
                   </div>
                 </asp:View>
             </asp:MultiView> 
-        </div>
- </form>
+s </form>
 
 
 <script src="js/jquery.datetimepicker.js"></script>

@@ -32,7 +32,7 @@
 
                 <div class="box">
                     <div class="cb"><div class="ctBox"><span class="ctBoxLbl">Number Events Scanned: </span><span class="ctBoxTxt"><asp:Label runat="server" ID="totalScanned"></asp:Label></span></div></div>
-                    <div class="cb"><div class="ctBox"><span class="ctBoxLbl">Number Events From Archive: </span><span class="ctBoxTxt"><asp:Label runat="server" ID="totalArchive"></asp:Label></span></div></div>
+                    <div class="cb"><div class="ctBox"><span class="ctBoxLbl">Transfer Credits or Archived Events: </span><span class="ctBoxTxt"><asp:Label runat="server" ID="totalArchive"></asp:Label></span></div></div>
                     <div class="cb"><div class="ctBox"><span class="ctBoxTotLbl">Total Events Attended: </span><span class="ctBoxTotTxt"><asp:Label runat="server" ID="totalAttended"></asp:Label></span><span style="display:block;float:left;font-size:0.7em;font-style:italic;color:#777;font-weight:normal;margin:10px 0 0 14px;">You must have a minimum of 24 CEP credits to graduate.</span></div></div>
                 </div>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="8" DataKeyNames="eventid" DataSourceID="EventsAttended" EnableModelValidation="True" ForeColor="#333333" GridLines="None" BorderStyle="Solid" BorderWidth="1px" Width="776px">
@@ -48,12 +48,12 @@
                     </Columns>
                     <EditRowStyle BackColor="#7C6F57" />
                     <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#ffcc00" Font-Bold="True" ForeColor="black" />
+                    <HeaderStyle BackColor="#ffcc00" Font-Bold="True" ForeColor="black" /> 
                     <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
                     <RowStyle BackColor="#f5f5f5" />
                     <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
                 </asp:GridView>
-                    <p style="font-style:italic;">Note: You should see three rows of numbers at the top, one displaying the total count of CEP events during which your ID was scanned, one for the total number of pre-Spring 2015 events you are known to have attended, and an overall total of the two previous rows.  Please contact the Student Development Office at 864-231-2075 if you have questions or feel that the total above is incorrect.</p>
+                    <p style="font-style:italic;">Note: You should see three rows of numbers at the top, one displaying the total count of CEP events during which your ID was scanned, one for the total number of Transfer and pre-Spring 2015 events (combined) you are known to have attended, and an overall total of the two previous rows.  Please contact the Student Development Office at 864-231-2075 if you have questions or feel that the total above is incorrect.</p>
                 </div>
                 <asp:SqlDataSource ID="EventsAttended" runat="server" ConnectionString="<%$ ConnectionStrings:EventAttendConnectionString %>" SelectCommand="select	distinct e.eventid
 		, e.eventTitle

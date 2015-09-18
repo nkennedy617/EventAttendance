@@ -23,7 +23,7 @@ public partial class StudentView : System.Web.UI.Page
             string connstring1 = "Data Source=AUSQL;Initial Catalog=EventAttend;Persist Security Info=True;User ID=web_user;Password=w3b_us3r2010";
             using (SqlConnection con1 = new SqlConnection(connstring1))
             {
-                string query = "select	top 1 p.people_id, p.last_name, p.first_name, p.middle_name, coalesce(p.nickname,'') as nickname, coalesce(convert(varchar(5),m.manLevelID),'') as mLevelID, coalesce(cm.mlTitle,'') as ManageLevel from	aupcstor.campus6_train.dbo.personuser pu  inner join aupcstor.campus6_train.dbo.people as p  on p.personid = pu.personid  left outer join ausql.eventattend.dbo.management as m on m.peopleid = p.people_id and m.status = 'a' and m.manLevelID IN (1,3) left outer join ausql.eventattend.dbo.code_managementlevel as cm on cm.manLevelID = m.manLevelID where	pu.username = 'cjones478'";
+                string query = "select	top 1 p.people_id, p.last_name, p.first_name, p.middle_name, coalesce(p.nickname,'') as nickname, coalesce(convert(varchar(5),m.manLevelID),'') as mLevelID, coalesce(cm.mlTitle,'') as ManageLevel from	aupcstor.campus6_train.dbo.personuser pu  inner join aupcstor.campus6_train.dbo.people as p  on p.personid = pu.personid  left outer join ausql.eventattend.dbo.management as m on m.peopleid = p.people_id and m.status = 'a' and m.manLevelID IN (1,3) left outer join ausql.eventattend.dbo.code_managementlevel as cm on cm.manLevelID = m.manLevelID where	pu.username = @username";
                 using (SqlCommand cmd1 = new SqlCommand(query, con1))
                 {
                     cmd1.Parameters.AddWithValue("@username", ticket.Name);

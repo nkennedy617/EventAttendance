@@ -1,35 +1,29 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EntryForm.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EditEvent.aspx.cs" Inherits="EditEvent" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
-    <title>Event Attendance - Entry Form</title>
-	<script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>  
+    <title>Event Attendance - Event Editing Form</title>
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>  
 	<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 </head>
 
-<body style="text-align:left;margin:auto;">
-    <form id="form1" runat="server" style="text-align:left;margin:auto;"> 
-    <%-- Tried adding this to form tag:  defaultfocus="txtStudentID" --%>
-        <div id="surround">
-            <div id="header">
-                <h2>Event Attendance<span style="width:24%;float:right;text-align:right;"><asp:Button ID="logoutButton" runat="server" Text="Log out" OnClick="logoutButton_Click" Height="25px" Width="75px" /></span></h2>
-                <div style="clear:both;"></div>
-                <div>
-                    <div style="width:33%;float:left;"><asp:Label ID="userPID" runat="server"></asp:Label></div>
-                    <div style="width:33%;float:left;"><asp:Label ID="userFullName" runat="server"></asp:Label></div>
-                    <div style="width:33%;float:left;text-align:right;"><asp:Label ID="userManageLevel" runat="server"></asp:Label></div>
-                    <div style="clear:both;"></div>
-                </div>
-            </div>
-            <asp:MultiView ID="MultiView1" runat="server">
-                <asp:View ID="View1" runat="server">
-					<div style="width:576px;text-align:left;margin:auto;padding:12px;">
+<body style="margin:auto;">
+    <form id="form1" runat="server" style="margin:auto; border:1px none red;"> 
+        <asp:SqlDataSource ID="eventInfo" runat="server" ConnectionString="<%$ ConnectionStrings:EventAttendConnectionString %>" SelectCommand="SELECT [eventID], [eventTitle], [eventDesc], [eventPresenter], [eventLoc], [startDateTime], [endDateTime], [hostID], [requestedBy] FROM [events] WHERE ([eventID] = @eventID)">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="eventID" QueryStringField="id" Type="String" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+					<div style="width:800px;margin:auto;">
+                    <asp:Label ID="idMsg" runat="server" style="color:orange;font-size:14pt;" />
                     <asp:Label ID="existsMsg" runat="server" style="color:maroon;font-size:14pt;" />
                     <asp:Label ID="successMsg" runat="server" style="color:darkgreen;font-size:14pt;" />
-					<h3 class="vTitle">Event Entry Form</h3>
+                    <asp:HiddenField ID="txtEID" runat="server" />
+					<h2 class="vTitle">Event Editing Form
+                        </h2>
                     <table style="width:100%">
 						<tr>
                             <td class="txtBoxLabel">Event Title:
@@ -41,7 +35,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtTitle" style="width: 280px; height: 30px;font-size:13pt;" runat="server" onblur="txtAge_onblur()" class="txtBox"></asp:TextBox>
+                                <asp:TextBox id="txtTitle" style="width: 280px; height: 30px;font-size:13pt;" runat="server" Text='<%# Eval("eventTitle") %>'></asp:TextBox>
                             </td>
                         </tr> 
 						<tr>
@@ -54,7 +48,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtEventLoc" style="width: 280px; height: 30px;font-size:13pt;" runat="server" onblur="txtAge_onblur()" class="txtBox"></asp:TextBox>
+                                <asp:TextBox id="txtEventLoc" style="width: 280px; height: 30px;font-size:13pt;" runat="server"></asp:TextBox>
                             </td>
                         </tr> 
 						<tr>
@@ -62,7 +56,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtDesc" style="width: 450px; height: 150px; vertical-align:top;" runat="server" onblur="txtAge_onblur()" TextMode="MultiLine" Rows="4"></asp:TextBox>
+                                <asp:TextBox id="txtDesc" style="width: 350px; height: 150px; vertical-align:top;" runat="server" TextMode="MultiLine" Rows="4"></asp:TextBox>
                             </td>
                         </tr>  
 						<tr>
@@ -77,7 +71,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtStartDateTime" style="width: 280px; height: 30px;" runat="server" onblur="txtAge_onblur()"></asp:TextBox>
+                                <asp:TextBox id="txtStartDateTime" style="width: 280px; height: 30px;" runat="server"></asp:TextBox>
                             </td>
                         </tr>  
 						<tr>
@@ -90,7 +84,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtEndDateTime" style="width: 280px; height: 30px;" runat="server" onblur="txtAge_onblur()"></asp:TextBox>
+                                <asp:TextBox id="txtEndDateTime" style="width: 280px; height: 30px;" runat="server"></asp:TextBox>
                             </td>
                         </tr> 
 						<tr>
@@ -119,7 +113,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtPresenter" style="width: 350px; height: 30px;" runat="server" onblur="txtAge_onblur()"></asp:TextBox>
+                                <asp:TextBox id="txtPresenter" style="width: 350px; height: 30px;" runat="server"></asp:TextBox>
                             </td>
                         </tr>  
 						<tr>
@@ -132,7 +126,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:TextBox id="txtRequestedBy" style="width: 280px; height: 30px;" runat="server" onblur="txtAge_onblur()"></asp:TextBox>
+                                <asp:TextBox id="txtRequestedBy" style="width: 280px; height: 30px;" runat="server"></asp:TextBox>
                             </td>
                         </tr>
 						<tr>
@@ -172,23 +166,11 @@
                         </tr>     
                         <tr>
                             <td>
-                                <asp:Button ID="btnSubmit" runat="server" Text="Save Event" Visible="true" style="width: 200px; height: 60px" OnClick="btnSubmit_Click" />
-                                <asp:Button ID="btnClear" runat="server" Text="Clear Form" Visible="true" style="width: 200px; height: 60px; margin-left:100px;" OnClick="btnClear_Click" />
+                                <asp:Button ID="btnSubmit" runat="server" Text="Save Event" Visible="true" style="width: 290px; height: 60px" OnClick="btnSubmit_Click" />
                             </td>
                         </tr>
                     </table>
-					</div>
-                </asp:View>
-                <asp:View ID="View2" runat="server">
-                  <div style="width:310px;text-align:left;margin:auto;">
-                  
-                   
-                    
-                    
-                  </div>
-                </asp:View>
-            </asp:MultiView> 
-        </div>
+					</div> 
  </form>
 
 

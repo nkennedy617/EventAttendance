@@ -65,7 +65,7 @@
 }
 .ctBoxLbl {
     display:block;
-    width:230px;
+    width:270px;
     padding:5px;
     float:left;
     color:#777;
@@ -84,7 +84,7 @@
     font-weight:bold;
     font-size:1.3em;
     padding:8px 5px 5px 5px;
-    width:230px;
+    width:270px;
     margin-bottom:15px;
 }
 .ctBoxTotTxt {
